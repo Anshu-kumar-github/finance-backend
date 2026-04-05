@@ -31,8 +31,21 @@ router.post("/", authorizeRoles("admin", "analyst"), async (req, res) => {
 // READ
 router.get("/", async (req, res) => {
   try {
-    const records = await Record.find();
+    const { type, category } = req.query;
+
+    let filter = {};
+
+    if (type) {
+      filter.type = type;
+    }
+
+    if (category) {
+      filter.category = category;
+    }
+
+    const records = await Record.find(filter);
     res.json(records);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
