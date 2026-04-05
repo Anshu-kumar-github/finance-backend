@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // test route
 app.get("/", (req, res) => {
-  res.send("API Working");
+  res.send("Finance Backend API is running successfully!");
 });
 
 app.listen(5000, () => console.log("Server running on port 5000"));
