@@ -42,7 +42,7 @@ This project is a backend system for managing financial data with role-based acc
 4. Run the server:
 
    ```
-   npx nodemon src/server.js
+   npm run dev
    ```
 
 ---
