@@ -31,9 +31,10 @@ router.post("/", authorizeRoles("admin", "analyst"), async (req, res) => {
 // READ
 router.get("/", async (req, res) => {
   try {
-    const { type, category } = req.query;
+    const { type, category, sort } = req.query;
 
     let filter = {};
+    let sortOption = {};
 
     if (type) {
       filter.type = type;
@@ -43,7 +44,12 @@ router.get("/", async (req, res) => {
       filter.category = category;
     }
 
-    const records = await Record.find(filter);
+    if (sort) {
+      sortOption[sort.replace("-", "")] = sort.startsWith("-") ? -1 : 1;
+    }
+
+    const records = await Record.find(filter).sort(sortOption);
+
     res.json(records);
 
   } catch (error) {
